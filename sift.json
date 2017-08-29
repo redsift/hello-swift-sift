@@ -16,7 +16,7 @@
         "gmailEmails":{
           "filter":{
             "conditions":[{
-              "date": "between now and 1 week before now"
+              "date": "between now and 2 days before now"
             }]
           },
           "wants": [
