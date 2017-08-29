@@ -1,0 +1,64 @@
+{
+  "name": "hello-swift-sift",
+  "display-name": "Hello Swift Sift",
+  "description": "",
+  "author": "",
+  "version": "1.0.0",
+  "icon": "assets/blueprint.svg",
+  "interfaces": {
+    "summary": {
+      "controller": "dist/js/controller.umd-es2015.min.js"
+    }
+  },
+  "dag": {
+    "inputs":{
+      "emails": {
+        "gmailEmails":{
+          "filter":{
+            "conditions":[{
+              "date": "between now and 1 week before now"
+            }]
+          },
+          "wants": [
+            "archive",
+            "textBody",
+            "strippedHtmlBody"
+          ]
+        }
+      }
+    },
+    "nodes":[{
+      "#": "Javascript Node",
+      "implementation": {
+        "javascript": "server/node1.js"
+      },
+      "input": {
+        "bucket": "gmailEmails"
+      },
+      "outputs": {
+        "output1": {}
+      }
+    },
+    {
+      "#": "Swift Node",
+      "implementation": {
+        "sandbox": "quay.io/redsift/sandbox-swift:v3.1.1",
+        "swift": "server/Node1.swift"
+      },
+      "input": {
+        "bucket": "gmailEmails"
+      },
+      "outputs": {
+        "output1": {}
+      }
+    }],
+    "stores":{},
+    "outputs":{
+       "exports":{
+        "output1":{
+          "key$schema":"string"
+        }
+      }
+    }
+  }
+}
